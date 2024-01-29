@@ -44,7 +44,7 @@ NUEDC/
 
  对于测温器件的重新选择，考虑到用温度传感器，在单片机电路设计中，大多都是使用传感器，所以可以采用一只温度传感器 DS18B20，此传感器，可以很 容易直接读取被测温度值，进行转换，就可以满足设计要求。
 
-<div align=center><img  src ="https://github.com/zihaonian/Electronic-Design-Competition-AHJZU/blob/main/res/Scheme 2 system distribution map"/></div>
+<div align=center><img  src ="https://github.com/zihaonian/Electronic-Design-Competition-AHJZU/blob/main/res/Scheme 2 system distribution map.jpg"/></div>
 
  通过上述两种方案的设计以及流程图，可以看出，方案一通过热敏电阻采集 的温度数据需要额外搭载 AD 转换电路进行转化，方案二只需通过温度传感器即 可采集准确的温度数据。采用热敏电阻，可满足 40 摄氏度至 90 摄氏度测量范 围，但热敏电阻精度、重复性、可靠性较差，对于检测 1 摄氏度的信号是不适用 的，DS18B20 测温范围为-55℃到+125℃，在-10℃到+85℃范围内误差为±0.4°，精确性上优于热敏电阻。同时软件设计方面方案二简易程度要优于方案一，因此通过比较，最终选择方案二作为本系统的设计方案。
 
