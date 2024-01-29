@@ -34,7 +34,7 @@ NUEDC/
 
  实时时钟，该时钟内部带有备用电源，可以使时间数据掉电不丢失，并通过软件 编写程序，实现了通过按键设置显示时间的功能。为了完成与上位机的通信，配置了 UART 串口函数，最终，通过串口可以实现向上位机发送历史温度以及时间 数据，达到数据保存目的。至此该系统总体需求均已实现。
 
-<div align=center><img  src ="https://github.com/zihaonian/Electronic-Design-Competition-AHJZU/res/Scheme 1 System distribution diagram.jpg"/></div>
+<div align=center><img  src ="https://github.com/zihaonian/Electronic-Design-Competition-AHJZU/blob/main/res/DS1302 real-time clock wiring diagram.jpg"/></div>
 
 ##  系统方案设计
 
