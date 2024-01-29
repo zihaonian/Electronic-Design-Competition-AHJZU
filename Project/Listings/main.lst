@@ -1,0 +1,174 @@
+C51 COMPILER V9.59.0.0   MAIN                                                              06/14/2022 22:35:31 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE main.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\m
+                    -ain.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          /*****头文件区***************************************************************/
+   2          #include <REGX52.H>
+   3          #include "LCD1602.h"
+   4          #include "DS18B20.h"
+   5          #include "Delay.h"
+   6          #include "MatrixKey.h"
+   7          #include "DS1302.h"
+   8          #include "Timer.h"
+   9          #include "UART.h"
+  10          /*******************************************************************************/
+  11          
+  12          /*****变量定义区***************************************************************/
+  13          u8 Count_k=0;
+  14          u8 Count_i=0;
+  15          u8 Count_j=0;
+  16          /*******************************************************************************/
+  17          
+  18          /*******************************************************************************
+  19          * Name          main
+  20          * Functiom      .......
+  21          * Input         Non
+  22          * Output        Non
+  23          * Author        年志豪 胡建
+  24          * University    安徽建筑大学
+  25          * Decoding      GB2312
+  26          * Time          2022年6月14日
+  27          *******************************************************************************/
+  28          void main()
+  29          {
+  30   1        DS1302_Init();                       //时钟模块初始化
+  31   1        LCD_Init();                          //LCD1602模块初始化
+  32   1        Timer0Init();                        //定时器0初始化
+  33   1        UartInit();                          //串口初始化
+  34   1        DS1302_SetTime();                    //时钟时间赋初值
+  35   1        DS18B20_ConvertT();                  //上电先转换一次温度，防止第一次读数据错误
+  36   1        LCD_ShowString(1,1,"N1:20210040216");//学号显示
+  37   1        LCD_ShowString(2,1,"N2:20203100142");
+  38   1        while(1)
+  39   1        {
+  40   2          matrixkey_return=MatrixKey();
+  41   2          if(matrixkey_return==15)
+  42   2          {
+  43   3            Count_k++;
+  44   3          }
+  45   2          if(Count_k%3==0)
+  46   2          {
+  47   3            if(matrixkey_return==16)     
+  48   3            {
+  49   4              Count_i++;                       //模式控制计数器变量自增
+  50   4              matrixkey_return=0;              //矩阵键值清零
+  51   4            }
+  52   3            if(Count_i%2==0)                   //模式1(学号显示模式)
+  53   3            {
+  54   4              LCD_Init();                      //LCD1602模块初始化
+C51 COMPILER V9.59.0.0   MAIN                                                              06/14/2022 22:35:31 PAGE 2   
+
+  55   4              LCD_ShowString(1,1,"N1:20210040216");
+  56   4              LCD_ShowString(2,1,"N2:20203100142");
+  57   4            }
+  58   3            if(Count_i%2==1)                   //模式2(温度时间显示模式)
+  59   3            {
+  60   4              LCD_Init();                      //LCD1602模块初始化
+  61   4              DS18B20_ReadT();                 //读取温度
+  62   4              DS18B20_ConvertT();              //转换温度
+  63   4              LCD1602_Show_T();                //显示温度
+  64   4              DS1302_ReadTime();               //读取时间
+  65   4              LCD1602_Show_Time();             //显示时间
+  66   4            }
+  67   3            Delay(500);
+  68   3          }
+  69   2          
+  70   2          if(Count_k%3==1)                     //模式3(时间设置模式)
+  71   2          { 
+  72   3            matrixkey_return=0;
+  73   3            LCD_Init();
+  74   3            LCD_ShowString(1,1,"MODE:Setting Time");
+  75   3            LCD1602_Show_Time();
+  76   3            while(1)
+  77   3            {
+  78   4              matrixkey_return=MatrixKey(); 
+  79   4              if(matrixkey_return==1){DS1302_Time[0]++;matrixkey_return=0;}
+  80   4              if(matrixkey_return==5){DS1302_Time[0]--;matrixkey_return=0;}
+  81   4              
+  82   4              if(matrixkey_return==2){DS1302_Time[1]++;matrixkey_return=0;}
+  83   4              if(matrixkey_return==6){DS1302_Time[1]--;matrixkey_return=0;}
+  84   4              
+  85   4              if(matrixkey_return==3){DS1302_Time[2]++;matrixkey_return=0;}
+  86   4              if(matrixkey_return==7){DS1302_Time[2]--;matrixkey_return=0;}
+  87   4              
+  88   4              if(matrixkey_return==4){DS1302_Time[3]++;matrixkey_return=0;}
+  89   4              if(matrixkey_return==8){DS1302_Time[3]--;matrixkey_return=0;}
+  90   4              
+  91   4              if(matrixkey_return==9){DS1302_Time[4]++;matrixkey_return=0;}
+  92   4              if(matrixkey_return==13){DS1302_Time[4]--;matrixkey_return=0;}
+  93   4              
+  94   4              if(matrixkey_return==10){DS1302_Time[5]++;matrixkey_return=0;}
+  95   4              if(matrixkey_return==14){DS1302_Time[5]--;matrixkey_return=0;}
+  96   4              
+  97   4              DS1302_SetTime();
+  98   4              LCD1602_Show_Time();
+  99   4              
+ 100   4              if(matrixkey_return==15||matrixkey_return==16){break;}
+ 101   4            } 
+ 102   3            Count_k++;
+ 103   3          }
+ 104   2          if(Count_k%3==2)                        //模式4(时间温度数据回查模式)
+ 105   2          {
+ 106   3            matrixkey_return=0;
+ 107   3            LCD_Init();
+ 108   3            LCD_ShowString(1,1,"MODE:");
+ 109   3            LCD_ShowString(1,8,"Record");
+ 110   3            LCD_ShowNum(1,6,(Count_j%10)+1,2);
+ 111   3            LCD_ShowNum(2,1,Time_Record_Array[Count_j%10][0],2);
+ 112   3            LCD_ShowString(2,3,":");
+ 113   3            LCD_ShowNum(2,4,Time_Record_Array[Count_j%10][1],2);
+ 114   3            LCD_ShowString(2,6,":");
+ 115   3            LCD_ShowNum(2,7,Time_Record_Array[Count_j%10][2],2);
+ 116   3            while(1)
+C51 COMPILER V9.59.0.0   MAIN                                                              06/14/2022 22:35:31 PAGE 3   
+
+ 117   3            {
+ 118   4              matrixkey_return=MatrixKey();
+ 119   4              if(matrixkey_return==8){Count_j++;matrixkey_return=0;}
+ 120   4              if(matrixkey_return==12){Count_j--;matrixkey_return=0;}
+ 121   4              LCD_ShowNum(1,6,(Count_j%10)+1,2);
+ 122   4              LCD_ShowNum(2,1,Time_Record_Array[Count_j%10][0],2);
+ 123   4              LCD_ShowString(2,3,":");
+ 124   4              LCD_ShowNum(2,4,Time_Record_Array[Count_j%10][1],2);
+ 125   4              LCD_ShowString(2,6,":");
+ 126   4              LCD_ShowNum(2,7,Time_Record_Array[Count_j%10][2],2);
+ 127   4              
+ 128   4      
+ 129   4              LCD_ShowChar(2,11,'+'); //显示正号
+ 130   4              LCD_ShowNum(2,12,Temperature_Record_Array[Count_j%10],2);   //显示温度整数部分
+ 131   4              LCD_ShowChar(2,14,'.');   //显示小数点
+ 132   4              LCD_ShowNum(2,15,(unsigned long)(Temperature_Record_Array[Count_j%10]*10000)%10000,2);//显示温度小数部
+             -分
+ 133   4              if(matrixkey_return==11)
+ 134   4              { 
+ 135   5                printf("\n\n温度时间回显 S11触发\n");
+ 136   5                printf("第%2.0f次时间温度记录\n",(float)(Count_j%10)+1);
+ 137   5                printf("温度：%2.4f^C  ",Temperature_Record_Array[Count_j%10]);
+ 138   5                printf("时间：%2.0f:%2.0f:%2.0f\n\n\n",(float)Time_Record_Array[Count_j%10][0],(float)Time_Record_Arr
+             -ay[Count_j%10][1],(float)Time_Record_Array[Count_j%10][2]);
+ 139   5              }
+ 140   4              if(matrixkey_return==15){matrixkey_return=0;Count_k++;break;}
+ 141   4            }
+ 142   3          }
+ 143   2        }
+ 144   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1286    ----
+   CONSTANT SIZE    =    153    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
