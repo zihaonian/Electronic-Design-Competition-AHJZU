@@ -1,0 +1,1 @@
+"main.c" LARGE OPTIMIZE (8,SPEED) BROWSE INCDIR(.\systeam\delay;.\systeam\DS1302;.\systeam\DS18B20;.\systeam\int;.\systeam\LCD1602;.\systeam\MatrixKey;.\systeam\OneWire;.\systeam\Timer;.\systeam\UART) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJECT(.\Objects\main.obj)

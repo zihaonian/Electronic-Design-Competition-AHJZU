@@ -3,8 +3,8 @@
 #include "DS1302.h"
 #include "DS18B20.h"
 #include "UART.h"
-u16 Count_i1=0;//计时计数器变量
-u8 Count_k1=0;//数组赋值计数器变量
+unsigned int  Count_i1=0;//计时计数器变量
+unsigned char Count_k1=0;//数组赋值计数器变量
 unsigned char Time_Record_Array[10][3]={{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0},{0,0,0}};
 float Temperature_Record_Array[10]={0,0,0,0,0,0,0,0,0,0};
 void Timer0Init(void)		//50毫秒@12.000MHz

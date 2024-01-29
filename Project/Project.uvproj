@@ -10,7 +10,6 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
-      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>AT89C52</Device>
@@ -218,14 +217,12 @@
             <Mx51P>0</Mx51P>
             <hadXRAM2>0</hadXRAM2>
             <uocXram2>0</uocXram2>
-            <hadXRAM3>0</hadXRAM3>
             <ModC2>0</ModC2>
             <ModH2>0</ModH2>
             <Mdu_R515>0</Mdu_R515>
             <Mdu_F120>0</Mdu_F120>
             <Psoc>0</Psoc>
             <hadIROM2>0</hadIROM2>
-            <hadIROM3>0</hadIROM3>
             <ModSmx2>0</ModSmx2>
             <cBanks>0</cBanks>
             <xBanks>0</xBanks>
@@ -295,16 +292,6 @@
                 <StartAddress>0x0</StartAddress>
                 <Size>0x0</Size>
               </IROM512>
-              <XRA513>
-                <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
-              </XRA513>
-              <IROM513>
-                <Type>0</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x0</Size>
-              </IROM513>
             </OnChipMemories>
           </Target51Misc>
           <C51>
@@ -324,7 +311,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>.\systeam\delay;.\systeam\DS1302;.\systeam\DS18B20;.\systeam\int;.\systeam\LCD1602;.\systeam\MatrixKey;.\systeam\OneWire;.\systeam\Timer;.\systeam\UART</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -377,54 +364,54 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
               <FileName>Delay.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Delay.c</FilePath>
+              <FilePath>.\systeam\delay\Delay.c</FilePath>
             </File>
             <File>
               <FileName>DS18B20.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\DS18B20.c</FilePath>
+              <FilePath>.\systeam\DS18B20\DS18B20.c</FilePath>
             </File>
             <File>
               <FileName>DS1302.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\DS1302.c</FilePath>
+              <FilePath>.\systeam\DS1302\DS1302.c</FilePath>
             </File>
             <File>
               <FileName>int.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\int.c</FilePath>
+              <FilePath>.\systeam\int\int.c</FilePath>
             </File>
             <File>
               <FileName>LCD1602.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\LCD1602.c</FilePath>
+              <FilePath>.\systeam\LCD1602\LCD1602.c</FilePath>
             </File>
             <File>
               <FileName>MatrixKey.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\MatrixKey.c</FilePath>
+              <FilePath>.\systeam\MatrixKey\MatrixKey.c</FilePath>
             </File>
             <File>
               <FileName>OneWire.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\OneWire.c</FilePath>
+              <FilePath>.\systeam\OneWire\OneWire.c</FilePath>
             </File>
             <File>
               <FileName>Timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Timer.c</FilePath>
+              <FilePath>.\systeam\Timer\Timer.c</FilePath>
             </File>
             <File>
               <FileName>UART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\UART.c</FilePath>
+              <FilePath>.\systeam\UART\UART.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

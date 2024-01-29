@@ -2,7 +2,7 @@
 #include "Delay.h"
 #include "MatrixKey.h"
 
-u8 matrixkey_return=0;
+unsigned char matrixkey_return=0;
 
 unsigned char MatrixKey()
 {
